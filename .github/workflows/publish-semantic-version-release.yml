@@ -1,0 +1,119 @@
+name: Publish Semantic Version Release
+run-name: Publish Semantic Version Release by ${{ github.actor }} ${{ github.run_number }}
+
+on:
+  # Triggers to run the workflow manually
+  workflow_dispatch:
+    inputs:
+      SEMANTIC_TYPE:
+        type: choice
+        description: 'Semantic type (major.minor.patch)'
+        required: true
+        options:
+          - major
+          - minor
+          - patch
+
+  # Triggers to run the workflow automatic when a pull request has closed
+  pull_request:
+    types:
+      - closed
+
+permissions:
+  packages: write
+  contents: read
+
+jobs:
+  manually-semantic-version-release:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Release Conditions
+        run: |
+          if [[ "${GITHUB_REF_NAME}" != "main" ]]; then
+            echo "[Error]:: New releases can only be released from the main branch"
+            exit 1
+          fi
+      
+      - name: Checkout Repository Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.WILLBANK_PLATFORMS_PERSONAL_ACCESS_TOKEN }}
+          fetch-depth: 30
+      
+      - name: Install changie.dev
+        run: |
+          #!/bin/bash
+          release_url="https://github.com/miniscruff/changie/releases/download/v1.12.0/changie_1.12.0_linux_amd64.tar.gz"
+          tar_file="changie_1.12.0_linux_amd64.tar.gz"
+          extracted_dir="changie"
+
+          wget "$release_url" -O "$tar_file"
+          if [ $? -ne 0 ]; then
+            echo "[Error]:: Failed to download tar.gz file."
+            exit 1
+          fi
+          
+          tar -xzf "$tar_file"
+          if [ $? -eq 0 ]; then
+            echo "[Info]:: Binary extracted successfully."
+          else
+            echo "[Error]:: Failed to extract binary."
+            exit 1
+          fi
+      
+      - name: Publish New Semantic Version Release
+        uses: will-bank/semantic-version-release-action@v1.0.1
+        with:
+          github-token: ${{ secrets.WILLBANK_PLATFORMS_PERSONAL_ACCESS_TOKEN }}
+          semantic-type: ${{ inputs.SEMANTIC_TYPE }}
+
+  automatic-semantic-version-release:
+    if: github.event.pull_request.merged && github.event.pull_request.base.ref == 'main' && (contains(github.event.pull_request.labels.*.name, 'release-major') || contains(github.event.pull_request.labels.*.name, 'release-minor') || contains(github.event.pull_request.labels.*.name, 'release-patch'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.WILLBANK_PLATFORMS_PERSONAL_ACCESS_TOKEN }}
+          fetch-depth: 30
+      
+      - name: Install changie.dev
+        run: |
+          #!/bin/bash
+          release_url="https://github.com/miniscruff/changie/releases/download/v1.12.0/changie_1.12.0_linux_amd64.tar.gz"
+          tar_file="changie_1.12.0_linux_amd64.tar.gz"
+          extracted_dir="changie"
+
+          wget "$release_url" -O "$tar_file"
+          if [ $? -ne 0 ]; then
+            echo "[Error]:: Failed to download tar.gz file."
+            exit 1
+          fi
+          
+          tar -xzf "$tar_file"
+          if [ $? -eq 0 ]; then
+            echo "[Info]:: Binary extracted successfully."
+          else
+            echo "[Error]:: Failed to extract binary."
+            exit 1
+          fi
+
+      - name: Check Pull Request Label
+        run: |
+          if [[ "$(jq -r '.pull_request.labels[].name' "$GITHUB_EVENT_PATH" | grep -c 'release-major')" -gt 0 ]]; then
+            echo "SEMANTIC_TYPE=major" >> $GITHUB_ENV
+            exit 0
+          elif [[ "$(jq -r '.pull_request.labels[].name' "$GITHUB_EVENT_PATH" | grep -c 'release-minor')" -gt 0 ]]; then
+            echo "SEMANTIC_TYPE=minor" >> $GITHUB_ENV
+            exit 0
+          elif [[ "$(jq -r '.pull_request.labels[].name' "$GITHUB_EVENT_PATH" | grep -c 'release-patch')" -gt 0 ]]; then
+            echo "SEMANTIC_TYPE=patch" >> $GITHUB_ENV
+            exit 0
+          fi
+
+      - name: Publish New Semantic Version Release
+        uses: will-bank/semantic-version-release-action@v1.0.1
+        with:
+          github-token: ${{ secrets.WILLBANK_PLATFORMS_PERSONAL_ACCESS_TOKEN }}
+          semantic-type: ${{ env.SEMANTIC_TYPE }}
