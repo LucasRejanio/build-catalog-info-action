@@ -1,10 +1,10 @@
-// const core = require("@actions/core")
+import "@actions/core"
 
-const catalogHandler = require('./src/catalog-handler')
+import { catalogEntity } from './src/catalog-handler'
 
 async function main() {
     try {
-        catalogHandler.catalogEntity()
+        catalogEntity()
     } catch (error) {
         throw Error(error)
     }
