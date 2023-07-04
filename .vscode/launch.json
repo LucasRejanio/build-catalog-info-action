@@ -23,7 +23,7 @@
                 "CATALOG_LIFECYCLE": "production",
                 "CATALOG_DEFINITION_TYPE": "worker",
                 "CATALOG_ANNOTATIONS_GITHUB.COM/PROJECT-SLUG": "will-bank/build-catalog-info-action",
-                "PRODUCTION_BACKSTAGE_CATALOG_BUCKET_NAME": "will-dev-backstage-catalog"
+                "BACKSTAGE_CATALOG_BUCKET_NAME": "will-dev-backstage-catalog"
             }
         }
     ]

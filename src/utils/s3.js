@@ -10,9 +10,9 @@ const uploadFileToS3 = async (localFilePath, objectKey) => {
     try {
         const fileStream = fs.createReadStream(localFilePath);
         
-        const catalogBucket = process.env.PRODUCTION_BACKSTAGE_CATALOG_BUCKET_NAME
+        const catalogBucket = process.env.BACKSTAGE_CATALOG_BUCKET_NAME
         if (!catalogBucket) {
-            throw new Error(`PRODUCTION_BACKSTAGE_CATALOG_BUCKET_NAME environment variable is not defined.`);
+            throw new Error(`BACKSTAGE_CATALOG_BUCKET_NAME environment variable is not defined.`);
         }
         const uploadParams = {
             Bucket: catalogBucket,
