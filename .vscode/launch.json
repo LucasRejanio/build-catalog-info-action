@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/index.js",
+            "env": {
+                "APPLICATION_NAME": "build-catalog-info-action",
+                "APPLICATION_DESCRIPTION": "Action responsible build application info to use in backstage.",
+                "APPLICATION_TYPE": "workload",
+                "APPLICATION_OWNER": "delivery-platform",
+                "APPLICATION_LANGUAGE": "node",
+                "APPLICATION_FRAMEWORK": "github-action",
+                "APPLICATION_VERSION": "0.6.0",
+                "CATALOG_LIFECYCLE": "production",
+                "CATALOG_DEFINITION_TYPE": "worker",
+                "CATALOG_ANNOTATIONS_GITHUB.COM/PROJECT-SLUG": "will-bank/build-catalog-info-action"
+            }
+        }
+    ]
+}

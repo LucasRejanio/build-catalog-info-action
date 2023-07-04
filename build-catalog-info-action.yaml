@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: build-catalog-info-action
+  description: Action responsible build application info to use in backstage.
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: will-bank/build-catalog-info-action
+  tags:
+    - node
+    - github-action
+  links: []
+spec:
+  type: worker
+  lifecycle: production
+  owner: delivery-platform
+  system: unknown
+  dependsOn: []
+  providesApis: []
