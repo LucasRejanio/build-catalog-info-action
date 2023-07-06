@@ -65,9 +65,10 @@ function getCatalogData() {
       if (envVar === 'CATALOG_LIFECYCLE' && value !== 'development' && value !== 'production') {
         throw new Error('CATALOG_LIFECYCLE must be either "development" or "production".');
       }
-  
-      if (envVar === 'APPLICATION_TYPE' && value !== 'openapi' && value !== 'workload') {
-        throw new Error('APPLICATION_TYPE must be either "openapi" or "workload".');
+
+      const catalogDefinitionTypeAllowed = ['documentation', 'service', 'worker', 'website', 'library', 'tool', 'pipeline'];
+      if (envVar === 'CATALOG_DEFINITION_TYPE' && !catalogDefinitionTypeAllowed.includes(value)) {
+        throw new Error(`APPLICATION_TYPE must be one of ${catalogDefinitionTypeAllowed.join(', ')}.`);
       }
   
       applicationData[envVar.toLowerCase().replace(/_(\w)/g, (_, letter) => letter.toUpperCase())] = value;
