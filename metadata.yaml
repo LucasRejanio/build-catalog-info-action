@@ -1,0 +1,16 @@
+application:
+  name: build-catalog-info-action
+  description: >
+    Action that creates Backstage entities for information catalog.
+  type: workload
+  owner: delivery-platform
+  language: node
+  framework: github-action
+  version: 1.0.0
+
+catalog:
+  lifecycle: production
+  definition:
+    type: github-action
+  annotations:
+    github.com/project-slug: will-bank/build-catalog-info-action

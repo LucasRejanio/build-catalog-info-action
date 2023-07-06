@@ -1,5 +1,5 @@
 name: "Build Catalog Info Action"
-description: "Action that creates and sends catalog information to S3 storage for Backstage to use."
+description: "Action that creates Backstage entities for information catalog."
 runs:
   using: "node16"
   main: "index.js"
