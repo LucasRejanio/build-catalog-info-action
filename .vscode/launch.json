@@ -21,7 +21,7 @@
                 "APPLICATION_FRAMEWORK": "github-action",
                 "APPLICATION_VERSION": "0.6.0",
                 "CATALOG_LIFECYCLE": "production",
-                "CATALOG_DEFINITION_TYPE": "worker",
+                "CATALOG_DEFINITION_TYPE": "tool",
                 "CATALOG_ANNOTATIONS_GITHUB.COM/PROJECT-SLUG": "will-bank/build-catalog-info-action",
                 "BACKSTAGE_CATALOG_BUCKET_NAME": "will-dev-backstage-catalog"
             }
