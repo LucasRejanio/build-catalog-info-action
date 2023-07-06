@@ -11,6 +11,6 @@ application:
 catalog:
   lifecycle: production
   definition:
-    type: github-action
+    type: tool
   annotations:
     github.com/project-slug: will-bank/build-catalog-info-action
