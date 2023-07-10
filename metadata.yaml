@@ -4,7 +4,7 @@ application:
     Action that creates Backstage entities for information catalog.
   type: workload
   owner: delivery-platform
-  language: node
+  language: nodejs
   framework: github-action
   version: 1.0.0
 
