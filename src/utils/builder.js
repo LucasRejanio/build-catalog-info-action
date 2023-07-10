@@ -43,6 +43,10 @@ async function buildComponent(params) {
     return outputFile
 }
 
+// async function buildApi() {
+//   undefined
+// }
+
 function getCatalogData() {
     const requiredEnvVars = [
       'APPLICATION_NAME',
