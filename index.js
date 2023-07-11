@@ -3,11 +3,11 @@
 const catalogHandler = require('./src/catalog-handler')
 
 async function main() {
-    try {
-        catalogHandler.catalogEntity()
-    } catch (error) {
-        throw Error(error)
-    }
+  try {
+    catalogHandler.catalogEntity()
+  } catch (error) {
+    throw Error(error)
+  }
 }
 
 main()
