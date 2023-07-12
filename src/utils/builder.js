@@ -63,7 +63,7 @@ async function buildApi() {
       links: extractLinksFromEnv(),
     },
     spec: {
-      type: catalogData.catalogDefinitionType,
+      type: 'openapi',
       lifecycle: catalogData.catalogLifecycle,
       owner: catalogData.applicationOwner,
       system: 'unknown',
