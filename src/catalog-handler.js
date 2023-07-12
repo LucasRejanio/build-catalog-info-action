@@ -20,7 +20,7 @@ async function catalogEntity(params) {
       await s3.uploadFileToS3(componentFilePath, `components/${componentFilePath}`);
 
       const apiFilePath = await builder.buildApi();
-      await s3.uploadFileToS3(apiFilePath, `api/${apiFilePath}`);
+      await s3.uploadFileToS3(apiFilePath, `apis/${apiFilePath}`);
     } catch (error) {
       throw error;
     }
